@@ -10,7 +10,8 @@ def pars_page(number_page: int):
     # добавим заголовки для идентификации нашего запроса, чтобы показать сайту,
     # что мы не бот, а обычный пользователь
     headers = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 YaBrowser/22.11.3.818 Yowser/2.5 Safari/537.36'
+        'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/106.0.0.0 YaBrowser/22.11.3.818 Yowser/2.5 Safari/537.36'
     }
 
     # создадим объект requests, который будет сохранять в себе html код страницы
