@@ -19,11 +19,11 @@ def pars_page(number_page: int):
 
     # сохраним наш код в файл html с кодировкой, чтобы не дергать наш сайт запросами
     # выполняем 1 раз для записи
-    with open(f'index_{number_page}.html', 'w', encoding='utf-8') as file:
+    with open(f'page_{number_page}.html', 'w', encoding='utf-8') as file:
         file.write(req.text)
 
     # откроем наш файл
-    with open(f'index_{number_page}.html', 'r', encoding='utf-8') as file:
+    with open(f'page_{number_page}.html', 'r', encoding='utf-8') as file:
         data = file.read()
 
     # создадим объект обработчика BeautifulSoup и в качестве параметров передадим
@@ -72,23 +72,29 @@ def pars_page(number_page: int):
     for i in range(len(cats_breed_names)):
 
         # зададим название нашей папки по названию породы из нашего списка
-        new_folder = fr'C:\Users\USER\PycharmProjects\pythonProject1\cats\{cats_breed_names[i]}'
+        new_folder = fr'{main_folder}/{cats_breed_names[i]}'
 
         # создадим нашу новую папку, если папки с таким названием нет в каталоге
         if not os.path.exists(new_folder):
             os.makedirs(new_folder)
 
         # сохраним наше фото в переменную, а затем запишем его в двоичном формате
+        cat_path_save = f'{main_folder}/{cats_breed_names[i]}/{cats_breed_names[i]}'
         downloaded_photo = requests.get(f'{cats_links[i]}').content
-        with open(f'cats/{cats_breed_names[i]}/{cats_breed_names[i]}.jpg', 'wb') as file:
+        with open(f'{cat_path_save}.jpg', 'wb') as file:
             file.write(downloaded_photo)
 
         # создадим txt файл с описанием породы и добавим в папку с данной породой
-        with open(f'cats/{cats_breed_names[i]}/{cats_breed_names[i]}.txt', 'w', encoding='utf-8') as file:
+        with open(f'{cat_path_save}.txt', 'w', encoding='utf-8') as file:
             file.write(cats_descriptions[i])
 
 
 if __name__ == '__main__':
+    # создаем основную папку, куда будем складывать наши файлы
+    main_folder = r'./cats'
+    if not os.path.exists(main_folder):
+        os.makedirs(main_folder)
+
     # соберем со всех страниц всю информацию с помощью цикла
     for page in range(7):
         pars_page(page + 1)
